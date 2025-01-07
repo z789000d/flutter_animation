@@ -44,13 +44,11 @@ class Poker extends StatelessWidget {
               angle: controller.rotationAngle.value,
               child: GestureDetector(
                   onTap: () {
-                    if(controller.pokerIsBack.value == true)
-                    {
+                    if (controller.pokerIsBack.value == true) {
                       controller.startRotateY(() {
                         clickCallback();
                       });
                     }
-
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -60,16 +58,32 @@ class Poker extends StatelessWidget {
                     width: 150,
                     height: 150,
                     child: (controller.pokerIsBack.value)
-                        ? SvgPicture.asset(
-                            pokerData.imageUrlBack,
-                            // Path to your SVG asset
-                            width: 150,
-                            height: 150,
-                            fit: BoxFit.contain,
-                            colorFilter: ColorFilter.mode(
-                              Colors.black, // Make the SVG itself transparent
-                              BlendMode.srcIn,
-                            ),
+                        ? Stack(
+                            children: [
+                              Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(
+                                        10)), // Elliptical bottom-right corner
+                                  ),
+                                  width: 100,
+                                  height: 150,
+                                ),
+                              ),
+                              SvgPicture.asset(
+                                pokerData.imageUrlBack,
+                                // Path to your SVG asset
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.contain,
+                                colorFilter: ColorFilter.mode(
+                                  Colors
+                                      .black, // Make the SVG itself transparent
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ],
                           )
                         : SvgPicture.asset(
                             pokerData.imageUrl,
@@ -77,7 +91,6 @@ class Poker extends StatelessWidget {
                             width: 150,
                             height: 150,
                             fit: BoxFit.contain,
-
                           ),
                   )),
             ),

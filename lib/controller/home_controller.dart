@@ -11,7 +11,8 @@ import '../widget/poker.dart';
 class HomeController extends GetxController {
   RxList<Poker> pokerWidget = <Poker>[].obs;
   RxList<PokerData> pokerData = <PokerData>[].obs;
-
+  RxList<Indexed> indexedWidget = <Indexed>[].obs;
+  RxList<int> allZIndex = <int>[].obs;
   int startIndex = 0;
   var clickCardList = <PokerController>[];
   var clearCardIndex = 0;
@@ -47,6 +48,21 @@ class HomeController extends GetxController {
                 clickCard(Get.put(PokerController(), tag: '$index'));
               },
             ));
+
+    allZIndex.value =
+        List.generate(allCardIndex, (index) => (allCardIndex - index));
+
+    indexedWidget.value = List.generate(allCardIndex, (index) {
+      return Indexed(
+          index: allZIndex.value[index],
+          key: UniqueKey(),
+          child: pokerWidget.value[index]);
+    });
+  }
+
+  void changeZ() {
+    allZIndex.value[0] = 999;
+    indexedWidget.refresh();
   }
 
   void deal() {
@@ -68,8 +84,8 @@ class HomeController extends GetxController {
       pokerWidget.value[nowIndex].controller.zIndex.value = 0;
 
       pokerWidget.value[nowIndex].controller.move(
-          (startIndex % 4) * (150), (200 * (startIndex / 4).toInt()).toDouble(),
-          () {
+          -20 + (startIndex % 4) * (Get.width / 4.6),
+          (Get.height / 5 * (startIndex / 4).toInt()).toDouble(), () {
         startIndex++;
         start();
       });
@@ -85,10 +101,9 @@ class HomeController extends GetxController {
       if (pokerWidget.value[i].controller.isMove == false) {
         return;
       }
-      pokerWidget.value[i].controller.zIndex.value = (i);
 
-      pokerWidget.value[i].controller
-          .back(((i) % 4) * (150), (200 * (i / 4).toInt()).toDouble(), () {});
+      pokerWidget.value[i].controller.back(((i) % 4) * (Get.width / 4.6),
+          (Get.height / 5 * (i / 4).toInt()).toDouble(), () {});
     }
   }
 

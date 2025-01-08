@@ -18,10 +18,13 @@ class PokerController extends GetxController with GetTickerProviderStateMixin {
   final _rotationYTween = Tween<double>(begin: 0, end: 1 * 3.14159265359);
 
   final rotationYOutSide = 0.0.obs;
+
+  final zIndex = 0.0.obs;
+
   final _rotationYTweenOutSide =
       Tween<double>(begin: 0, end: 1 * 3.14159265359);
 
-  final positionOffset = const Offset(0, 0).obs;
+  final positionOffset = const Offset(-20, 0).obs;
 
   var _positionTween = Tween<Offset>(
     begin: const Offset(0, 0), // Start at the center
@@ -31,7 +34,6 @@ class PokerController extends GetxController with GetTickerProviderStateMixin {
   var isMove = false;
   var isHalf = false;
 
-  var zIndex = 0.obs;
   Callback? statusCallBack;
   Callback? rotateStatusCallBack;
 
@@ -154,7 +156,7 @@ class PokerController extends GetxController with GetTickerProviderStateMixin {
       if (isMove) {
         _positionTween = Tween<Offset>(
           begin: Offset(x, y), // Start at the center
-          end: const Offset(0, 0), // End at the fixed offset
+          end: const Offset(-20, 0), // End at the fixed offset
         );
 
         _positionController.reset();
@@ -162,7 +164,7 @@ class PokerController extends GetxController with GetTickerProviderStateMixin {
         isMove = false;
       } else {
         _positionTween = Tween<Offset>(
-          begin: const Offset(0, 0), // Start at the center
+          begin: const Offset(-20, 0), // Start at the center
           end: Offset(x, y), // End at the fixed offset
         );
 

@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +66,8 @@ class HomePage extends StatelessWidget {
   Widget allCard() {
     final HomeController controller = Get.put(HomeController());
     return Obx(
-      () => Stack(
-        children: controller.pokerWidget.value,
+      () => Indexer(
+        children: controller.indexedWidget.value,
       ),
     );
   }
